@@ -21,7 +21,7 @@ namespace WDisp
         {
             InitializeComponent();
             myPen = new Pen(Color.DarkGreen,1);
-            g = panelGraph.CreateGraphics();
+            g = splitContainerMain.Panel2.CreateGraphics();
             /*
             panelGraph.MaximumSize = new Size(500, 500);
             panelGraph.Size = new Size(500, 500);
@@ -29,8 +29,8 @@ namespace WDisp
             */
            // panelGraph.Size = new Size(Form1.Size.Width);
 
-            centerX = panelGraph.Width / 2;
-            centerY = panelGraph.Height / 2;
+            centerX = splitContainerMain.Panel2.Width / 2;
+            centerY = splitContainerMain.Panel2.Height / 2;
 
         }
 
@@ -43,8 +43,8 @@ namespace WDisp
         private void testGraphics()
         {
             //g.DrawEllipse(myPen, 100, 100, 50, 50);
-            int CenterX = panelGraph.Width / 2;
-            int CenterY = panelGraph.Height / 2;
+            int CenterX = splitContainerMain.Panel2.Width / 2;
+            int CenterY = splitContainerMain.Panel2.Height / 2;
             g.DrawLine(myPen, CenterX, CenterY, 200, 200);
         }
 
@@ -85,7 +85,7 @@ namespace WDisp
         private void panelGraph_Paint(object sender, PaintEventArgs e)
         {
             //testGraphics();
-            
+            /*
             g.Dispose();
             g = panelGraph.CreateGraphics();
             g.Clear(Color.White);
@@ -93,12 +93,27 @@ namespace WDisp
             centerX = panelGraph.Width / 2;
             centerY = panelGraph.Height / 2;
             drawGrid(100, 10);
+            */
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            panelGraph.Refresh();
+            splitContainerMain.Panel2.Refresh();
            
+        }
+
+        private void splitContainerMain_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+            g.Dispose();
+            g = splitContainerMain.Panel2.CreateGraphics();
+            g.Clear(Color.White);
+
+            centerX = splitContainerMain.Panel2.Width / 2;
+            centerY = splitContainerMain.Panel2.Height / 2;
+            drawGrid(100, 10);
+
+
         }
     }
 
