@@ -67,15 +67,35 @@ namespace WDisp
     
         }
 
+        private void drawCircle(int centrXloc, int centrYloc, int R)
+        {
+            centrXloc += centerX;
+            centrYloc += centerY;
+            g.DrawEllipse(myPen, centrXloc - R , centrYloc - R , 2 * R, 2 * R);
+            
+        }
+
 
         private void drawGrid(int numbOfLines, int numbOfLeds) 
         {
-             
+            int startingOfset = centerY / 4;
+            int lenght = centerY;
+
             double angle = 0;
             for (int i = 0; i < numbOfLines; i++)
             {
-                drawLineByAngle(0, 0, centerY,angle, centerY/4);
+                drawLineByAngle(0, 0, lenght,angle, startingOfset);
                 angle += ((double)360 / numbOfLines); 
+            }
+
+
+            float R = startingOfset;
+            float offset = (lenght - startingOfset) / numbOfLeds;
+            for (int i = 0; i < numbOfLeds + 1;i++)
+            {
+                // g.DrawEllipse(myPen, centerX, centerY, 100 + 10*i, 100 + 10 * i);
+                drawCircle(0, 0,(int) R);
+                R += offset;
             }
     
         }

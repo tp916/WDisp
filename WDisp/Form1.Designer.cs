@@ -47,6 +47,7 @@
             // 
             // splitContainerMain
             // 
+            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
             this.splitContainerMain.Name = "splitContainerMain";
