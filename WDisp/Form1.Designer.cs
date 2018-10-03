@@ -30,6 +30,8 @@
         {
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.labelDebug1 = new System.Windows.Forms.Label();
+            this.TextBoxDebug = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
@@ -54,15 +56,36 @@
             // 
             // splitContainerMain.Panel1
             // 
+            this.splitContainerMain.Panel1.Controls.Add(this.TextBoxDebug);
+            this.splitContainerMain.Panel1.Controls.Add(this.labelDebug1);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonRefresh);
             // 
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainerMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerMain_Panel2_Paint);
+            this.splitContainerMain.Panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseClick);
+            this.splitContainerMain.Panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseMove);
             this.splitContainerMain.Size = new System.Drawing.Size(778, 483);
             this.splitContainerMain.SplitterDistance = 118;
             this.splitContainerMain.TabIndex = 0;
+            // 
+            // labelDebug1
+            // 
+            this.labelDebug1.AutoSize = true;
+            this.labelDebug1.Location = new System.Drawing.Point(25, 402);
+            this.labelDebug1.Name = "labelDebug1";
+            this.labelDebug1.Size = new System.Drawing.Size(24, 13);
+            this.labelDebug1.TabIndex = 0;
+            this.labelDebug1.Text = "X,Y";
+            // 
+            // TextBoxDebug
+            // 
+            this.TextBoxDebug.Location = new System.Drawing.Point(10, 142);
+            this.TextBoxDebug.Name = "TextBoxDebug";
+            this.TextBoxDebug.Size = new System.Drawing.Size(293, 96);
+            this.TextBoxDebug.TabIndex = 2;
+            this.TextBoxDebug.Text = "";
             // 
             // Form1
             // 
@@ -76,6 +99,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -85,6 +109,8 @@
         #endregion
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.Label labelDebug1;
+        private System.Windows.Forms.RichTextBox TextBoxDebug;
     }
 }
 
