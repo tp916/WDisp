@@ -21,6 +21,8 @@ namespace WDisp
         static double gridAngle;
         static float gridOfsetR;
         static int gridStartingOfset;
+        static int numbOfLeds;
+        static int numbOfLines;
 
         public Form1()
         {
@@ -178,10 +180,42 @@ namespace WDisp
 
             centerX = splitContainerMain.Panel2.Width / 2;
             centerY = splitContainerMain.Panel2.Height / 2;
-            drawGrid(100, 10);
+
+            numbOfLeds = 10;
+            numbOfLines = 100;
+            drawGrid(numbOfLines,numbOfLeds);
             
             //testGraphics();
         }
+
+        private void colourLedPoint(int lineNumb, int ledNumb, Color pointColor)
+        {
+           double r = ledNumb * gridOfsetR;
+           r += gridStartingOfset + gridOfsetR / 2;
+
+           double angle = lineNumb * gridAngle;
+
+            //----------------
+           Color bufColor = myPen.Color;
+           float bufWidth = myPen.Width;
+            //wypelnienie obszaru
+           myPen.Color = pointColor;
+           myPen.Width = ledWidth;
+           drawArcByAngle(0, 0, (int)r, (float)angle, (float)(angle + gridAngle));
+
+           myPen.Color = bufColor;
+           myPen.Width = bufWidth;
+           
+           //oswiezenie siatki
+           drawLineByAngle(0, 0, centerY/*!!!*/, angle, gridStartingOfset);
+           drawLineByAngle(0, 0, centerY/*!!!*/, angle + gridAngle, gridStartingOfset);
+           r -= gridOfsetR / 2;
+           drawCircle(0, 0, (int)r);
+           drawCircle(0, 0, (int)(r + gridOfsetR));
+
+
+        }
+
 
         private void splitContainerMain_Panel2_MouseClick(object sender, MouseEventArgs e)
         {
@@ -189,6 +223,9 @@ namespace WDisp
             int locY = (e.Y - centerY) *(1);
 
             double r = Math.Sqrt(locX * locX + locY * locY) /*+  0.5 * ledWidth*/;
+            if( ( r < gridStartingOfset) || (r > (gridStartingOfset + (numbOfLeds * gridOfsetR) ) ) )
+            { return; }
+
             double angle = Math.Atan(((double)locY) / ((double)locX));
 
             angle = (180 * angle) / Math.PI;
@@ -201,30 +238,17 @@ namespace WDisp
 
             //----------------
             //static double gridAngle;
-            //float gridOfsetR;
+            //float gridOfsetR; 
             //r / gridOfsetR
-            r = ( (int)( (r - gridStartingOfset) / gridOfsetR) ) * gridOfsetR;
-            r += gridStartingOfset + gridOfsetR / 2 ;
+            //------------------
+            int ledNo = (int) ( (r - gridStartingOfset) / gridOfsetR);
+            int lineNo = (int)(angle / gridAngle);
+            TextBoxDebug.Text += "ledNo =" + ledNo.ToString() + " lineNo = " + lineNo.ToString() + "\r\n";
+            colourLedPoint(lineNo,ledNo, Color.Orange);
+            //-------------------
 
-            angle = ((int)(angle / gridAngle)) * gridAngle;
 
-            //----------------
-            Color bufColor = myPen.Color;
-            float bufWidth = myPen.Width;
 
-            myPen.Color = Color.Orange;
-            myPen.Width = ledWidth; 
-            drawArcByAngle(0, 0, (int) r, (float )angle, (float)(angle + gridAngle));
-            
-            myPen.Color = bufColor;
-            myPen.Width = bufWidth;
-
-            //oswiezenie siatki
-            drawLineByAngle(0, 0, centerY/*!!!*/, angle, gridStartingOfset);
-            drawLineByAngle(0, 0, centerY/*!!!*/, angle + gridAngle, gridStartingOfset);
-            r -= gridOfsetR / 2;
-            drawCircle(0, 0, (int)r);
-            drawCircle(0, 0, (int)(r +gridOfsetR));
 
 
             //------------------------------------
