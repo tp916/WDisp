@@ -23,10 +23,13 @@ namespace WDisp
         static int gridStartingOfset;
         static int numbOfLeds;
         static int numbOfLines;
+        LineModel lineModel;
 
         public Form1()
         {
             InitializeComponent();
+            numbOfLeds = 10;
+            numbOfLines = 100;
             myPen = new Pen(Color.DarkGreen,2);
             g = splitContainerMain.Panel2.CreateGraphics();
             /*
@@ -39,7 +42,14 @@ namespace WDisp
             centerX = splitContainerMain.Panel2.Width / 2;
             centerY = splitContainerMain.Panel2.Height / 2;
 
+          //  lineModel = new LineModel(2,3);
+            lineModel = new LineModel(numbOfLines,numbOfLeds);
+            
+            TextBoxDebug.Text += lineModel.dispTable();
 
+            lineModel.line[1].led[1] = 1;
+            TextBoxDebug.Text += "---\r\n";
+            TextBoxDebug.Text += lineModel.dispTable();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -181,8 +191,7 @@ namespace WDisp
             centerX = splitContainerMain.Panel2.Width / 2;
             centerY = splitContainerMain.Panel2.Height / 2;
 
-            numbOfLeds = 10;
-            numbOfLines = 100;
+       
             drawGrid(numbOfLines,numbOfLeds);
             
             //testGraphics();
