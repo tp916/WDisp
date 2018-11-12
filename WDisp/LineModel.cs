@@ -17,16 +17,16 @@ namespace WDisp
 
     class LineModel
     {
-      
+
         public Line[] line;
-      
+
         public LineModel(int numbOfLines, int numbOfLeds)
         {
-            
+
             line = new Line[numbOfLines];
-            for(int i = 0; i < line.Length; i++)
+            for (int i = 0; i < line.Length; i++)
             {
-                line[i]  = new Line(numbOfLeds);
+                line[i] = new Line(numbOfLeds);
             }
         }
 
@@ -34,16 +34,28 @@ namespace WDisp
         {
             string sOut = "";
 
-            for(int i = 0; i < line.Length; i++)
+            for (int i = 0; i < line.Length; i++)
             {
-                for(int j = 0; j < line[i].led.Length; j++)
+                sOut += i.ToString("##") + ". ";
+                for (int j = 0; j < line[i].led.Length; j++)
                 {
                     sOut += line[i].led[j].ToString() + " ";
                 }
                 sOut += "\r\n";
             }
+            sOut += "-----------\r\n";
             return sOut;
         }
+
+        public void setLed(int lineNo, int ledNo, int state)
+        {
+            line[lineNo].led[ledNo] = state;
+        }
+        public int getLed(int lineNo, int ledNo)
+        {
+            return line[lineNo].led[ledNo];
+        }
+
 
     }
 }

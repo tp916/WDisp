@@ -10,6 +10,19 @@ using System.Windows.Forms;
 
 namespace WDisp
 {
+    public struct def_led_line
+    {
+       public int LineNo;
+       public int LedNo;
+
+       /* public def_led_line()
+        {
+            LineNo = -1;
+            LedNo = -1;
+        }
+        */
+    };
+
     public partial class Form1 : Form
     {
 
@@ -28,28 +41,32 @@ namespace WDisp
         public Form1()
         {
             InitializeComponent();
-            numbOfLeds = 10;
+            numbOfLeds = 32;
             numbOfLines = 100;
             myPen = new Pen(Color.DarkGreen,2);
             g = splitContainerMain.Panel2.CreateGraphics();
-            /*
-            panelGraph.MaximumSize = new Size(500, 500);
-            panelGraph.Size = new Size(500, 500);
-            panelGraph.Size.Width = 200;
-            */
-           // panelGraph.Size = new Size(Form1.Size.Width);
+        
 
             centerX = splitContainerMain.Panel2.Width / 2;
             centerY = splitContainerMain.Panel2.Height / 2;
 
-          //  lineModel = new LineModel(2,3);
+       
             lineModel = new LineModel(numbOfLines,numbOfLeds);
             
-            TextBoxDebug.Text += lineModel.dispTable();
+            DebugOut(lineModel.dispTable());
 
             lineModel.line[1].led[1] = 1;
-            TextBoxDebug.Text += "---\r\n";
-            TextBoxDebug.Text += lineModel.dispTable();
+            DebugOut("---\r\n");
+            DebugOut(lineModel.dispTable());
+        }
+
+
+        private void DebugOut(string s)
+        {
+            TextBoxDebug.Text += s;
+            TextBoxDebug.Text += "\r\n";
+            TextBoxDebug.SelectionStart = TextBoxDebug.Text.Length;
+            TextBoxDebug.ScrollToCaret();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -224,50 +241,65 @@ namespace WDisp
 
 
         }
-
-
-        private void splitContainerMain_Panel2_MouseClick(object sender, MouseEventArgs e)
+        //------------------------------------------------
+        private  def_led_line getLedFromXY(int X, int Y)
         {
-            int locX = (e.X - centerX) * (1);
-            int locY = (e.Y - centerY) *(1);
+            def_led_line retVal;// = new def_led_line();
+
+            retVal.LedNo = -1;
+            retVal.LineNo = -1;
+
+            int locX = (X - centerX) * (1);
+            int locY = (Y - centerY) * (1);
 
             double r = Math.Sqrt(locX * locX + locY * locY) /*+  0.5 * ledWidth*/;
-            if( ( r < gridStartingOfset) || (r > (gridStartingOfset + (numbOfLeds * gridOfsetR) ) ) )
-            { return; }
+            if ((r < gridStartingOfset) || (r > (gridStartingOfset + (numbOfLeds * gridOfsetR))))
+            { return retVal; }
 
             double angle = Math.Atan(((double)locY) / ((double)locX));
 
             angle = (180 * angle) / Math.PI;
 
             if ((locX < 0))
-            {angle += 180; }
+            { angle += 180; }
 
             if ((locX > 0) && (locY < 0))
             { angle += 360; }
 
-            //----------------
-            //static double gridAngle;
-            //float gridOfsetR; 
-            //r / gridOfsetR
             //------------------
-            int ledNo = (int) ( (r - gridStartingOfset) / gridOfsetR);
+            int ledNo = (int)((r - gridStartingOfset) / gridOfsetR);
             int lineNo = (int)(angle / gridAngle);
-            TextBoxDebug.Text += "ledNo =" + ledNo.ToString() + " lineNo = " + lineNo.ToString() + "\r\n";
-            colourLedPoint(lineNo,ledNo, Color.Orange);
-            //-------------------
+            DebugOut("ledNo =" + ledNo.ToString() + " lineNo = " + lineNo.ToString() + "\r\n");
 
+            retVal.LedNo = ledNo;
+            retVal.LineNo = lineNo;
+                       
+            return retVal; 
 
+        }
+        //-------------------------------------------------
+        private void splitContainerMain_Panel2_MouseClick(object sender, MouseEventArgs e)
+        {
+            def_led_line LedCoord = getLedFromXY(e.X, e.Y);
 
+           
+            if ((LedCoord.LedNo != -1) && (LedCoord.LineNo != -1))
+            {
 
+                if (lineModel.getLed(LedCoord.LineNo, LedCoord.LedNo) == 0)
+                {
+                    lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)1);
+                    colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.Orange);
+                }
+                else
+                {
+                    lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)0);
+                    colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.White);
+                }
+            }
+         
 
-            //------------------------------------
-            // System.Console.WriteLine("ewewq");
-            //System.Console.ReadKey();
-            TextBoxDebug.Text += "x=" + locX.ToString() + "y=" + locY.ToString() + "\r\n";
-            TextBoxDebug.Text += "r=" + r.ToString("#.##") + " angle=" + angle.ToString("#.##") + "\r\n";
-
-
-      
+            DebugOut(lineModel.dispTable());             
 
         }
 
@@ -280,7 +312,7 @@ namespace WDisp
 
 
             labelDebug1.Text = x.ToString() + "," + y.ToString();
-            
+           
         }
 
         
