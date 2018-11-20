@@ -30,8 +30,8 @@
         {
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.TextBoxDebug = new System.Windows.Forms.RichTextBox();
             this.labelDebug1 = new System.Windows.Forms.Label();
+            this.TextBoxDebug = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
@@ -65,18 +65,12 @@
             this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainerMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerMain_Panel2_Paint);
             this.splitContainerMain.Panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseClick);
+            this.splitContainerMain.Panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseDown);
             this.splitContainerMain.Panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseMove);
+            this.splitContainerMain.Panel2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseUp);
             this.splitContainerMain.Size = new System.Drawing.Size(778, 483);
             this.splitContainerMain.SplitterDistance = 192;
             this.splitContainerMain.TabIndex = 0;
-            // 
-            // TextBoxDebug
-            // 
-            this.TextBoxDebug.Location = new System.Drawing.Point(10, 3);
-            this.TextBoxDebug.Name = "TextBoxDebug";
-            this.TextBoxDebug.Size = new System.Drawing.Size(252, 261);
-            this.TextBoxDebug.TabIndex = 2;
-            this.TextBoxDebug.Text = "";
             // 
             // labelDebug1
             // 
@@ -86,6 +80,14 @@
             this.labelDebug1.Size = new System.Drawing.Size(24, 13);
             this.labelDebug1.TabIndex = 0;
             this.labelDebug1.Text = "X,Y";
+            // 
+            // TextBoxDebug
+            // 
+            this.TextBoxDebug.Location = new System.Drawing.Point(10, 3);
+            this.TextBoxDebug.Name = "TextBoxDebug";
+            this.TextBoxDebug.Size = new System.Drawing.Size(252, 261);
+            this.TextBoxDebug.TabIndex = 2;
+            this.TextBoxDebug.Text = "";
             // 
             // Form1
             // 

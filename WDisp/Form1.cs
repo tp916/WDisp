@@ -37,6 +37,8 @@ namespace WDisp
         static int numbOfLeds;
         static int numbOfLines;
         LineModel lineModel;
+        Boolean bMouseDown;
+        private def_led_line lastLedCoordinante;
 
         public Form1()
         {
@@ -260,7 +262,7 @@ namespace WDisp
 
             angle = (180 * angle) / Math.PI;
 
-            if ((locX < 0))
+            if ((locX <= 0))  ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> zweryfikowac
             { angle += 180; }
 
             if ((locX > 0) && (locY < 0))
@@ -275,14 +277,60 @@ namespace WDisp
             retVal.LineNo = lineNo;
                        
             return retVal; 
-
         }
         //-------------------------------------------------
         private void splitContainerMain_Panel2_MouseClick(object sender, MouseEventArgs e)
         {
-            def_led_line LedCoord = getLedFromXY(e.X, e.Y);
+        }
 
-           
+        private void splitContainerMain_Panel2_MouseMove(object sender, MouseEventArgs e)
+        {
+            int x,y;
+            def_led_line LedCoord = new def_led_line();
+
+            x = (e.X - centerX) * (1);
+            y = (e.Y - centerY) * (1);
+
+
+            labelDebug1.Text = x.ToString() + "," + y.ToString();
+
+            //---------------------
+
+            if(bMouseDown == true)
+            {
+                LedCoord = getLedFromXY(e.X, e.Y);
+
+                if ( (LedCoord.LedNo != -1) || (LedCoord.LineNo != -1))
+                {
+                    if( (lastLedCoordinante.LedNo != LedCoord.LedNo) || (lastLedCoordinante.LineNo != LedCoord.LineNo) )
+                    {
+
+                        if (lineModel.getLed(LedCoord.LineNo, LedCoord.LedNo) == 0)
+                        {
+                            lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)1);
+                            colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.Orange);
+                        }
+                        else
+                        {
+                            lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)0);
+                            colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.White);
+                        }
+
+                    }
+
+                }
+
+                lastLedCoordinante = LedCoord; 
+            }
+
+        }
+
+        private void splitContainerMain_Panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            bMouseDown = true;
+
+            def_led_line LedCoord = getLedFromXY(e.X, e.Y);
+                                 
             if ((LedCoord.LedNo != -1) && (LedCoord.LineNo != -1))
             {
 
@@ -297,25 +345,15 @@ namespace WDisp
                     colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.White);
                 }
             }
-         
-
-            DebugOut(lineModel.dispTable());             
+            lastLedCoordinante = LedCoord;
+            //DebugOut(lineModel.dispTable());
 
         }
 
-        private void splitContainerMain_Panel2_MouseMove(object sender, MouseEventArgs e)
+        private void splitContainerMain_Panel2_MouseUp(object sender, MouseEventArgs e)
         {
-            int x,y;
-
-            x = (e.X - centerX) * (1);
-            y = (e.Y - centerY) * (1);
-
-
-            labelDebug1.Text = x.ToString() + "," + y.ToString();
-           
+            bMouseDown = false;
         }
-
-        
     }
     
    // 2pi - 360 
