@@ -39,6 +39,7 @@ namespace WDisp
         LineModel lineModel;
         Boolean bMouseDown;
         private def_led_line lastLedCoordinante;
+        private int activColor;
 
         public Form1()
         {
@@ -51,8 +52,11 @@ namespace WDisp
 
             centerX = splitContainerMain.Panel2.Width / 2;
             centerY = splitContainerMain.Panel2.Height / 2;
+            activColor = 1;
+            buttonColor1.FlatAppearance.BorderSize = 3;
+            buttonColor2.FlatAppearance.BorderSize = 1;
+            buttonColor3.FlatAppearance.BorderSize = 1;
 
-       
             lineModel = new LineModel(numbOfLines,numbOfLeds);
             
             DebugOut(lineModel.dispTable());
@@ -283,6 +287,28 @@ namespace WDisp
         {
         }
 
+        private Color getActivColor()
+        {
+            switch(activColor)
+            {
+                case 0:
+                default:
+                {
+                    return Color.White;
+                }break;
+                case 1:
+                {
+                    return Color.Yellow;
+                }break;
+                case 2:
+                {
+                    return Color.Green;
+                }break;
+
+            }
+           
+        }
+
         private void splitContainerMain_Panel2_MouseMove(object sender, MouseEventArgs e)
         {
             int x,y;
@@ -304,18 +330,8 @@ namespace WDisp
                 {
                     if( (lastLedCoordinante.LedNo != LedCoord.LedNo) || (lastLedCoordinante.LineNo != LedCoord.LineNo) )
                     {
-
-                        if (lineModel.getLed(LedCoord.LineNo, LedCoord.LedNo) == 0)
-                        {
-                            lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)1);
-                            colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.Orange);
-                        }
-                        else
-                        {
-                            lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)0);
-                            colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.White);
-                        }
-
+                        lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, activColor);
+                        colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor());
                     }
 
                 }
@@ -333,17 +349,8 @@ namespace WDisp
                                  
             if ((LedCoord.LedNo != -1) && (LedCoord.LineNo != -1))
             {
-
-                if (lineModel.getLed(LedCoord.LineNo, LedCoord.LedNo) == 0)
-                {
-                    lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)1);
-                    colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.Orange);
-                }
-                else
-                {
-                    lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, (int)0);
-                    colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, Color.White);
-                }
+                lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, activColor);
+                colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor());
             }
             lastLedCoordinante = LedCoord;
             //DebugOut(lineModel.dispTable());
@@ -354,6 +361,37 @@ namespace WDisp
         {
             bMouseDown = false;
         }
+
+        private void buttonColor1_Click(object sender, EventArgs e)
+        {
+            activColor = 0;
+
+            buttonColor1.FlatAppearance.BorderSize = 3;
+            buttonColor2.FlatAppearance.BorderSize = 1;
+            buttonColor3.FlatAppearance.BorderSize = 1;
+        }
+
+        private void buttonColor2_Click(object sender, EventArgs e)
+        {
+            activColor = 1;
+
+            buttonColor1.FlatAppearance.BorderSize = 1;
+            buttonColor2.FlatAppearance.BorderSize = 3;
+            buttonColor3.FlatAppearance.BorderSize = 1;
+        }
+
+        private void buttonColor3_Click(object sender, EventArgs e)
+        {
+            activColor = 2;
+
+            buttonColor1.FlatAppearance.BorderSize = 1;
+            buttonColor2.FlatAppearance.BorderSize = 1;
+            buttonColor3.FlatAppearance.BorderSize = 3;
+            
+        }
+
+      
+    
     }
     
    // 2pi - 360 

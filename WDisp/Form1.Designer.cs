@@ -32,6 +32,9 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.labelDebug1 = new System.Windows.Forms.Label();
             this.TextBoxDebug = new System.Windows.Forms.RichTextBox();
+            this.buttonColor1 = new System.Windows.Forms.Button();
+            this.buttonColor3 = new System.Windows.Forms.Button();
+            this.buttonColor2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
@@ -56,6 +59,9 @@
             // 
             // splitContainerMain.Panel1
             // 
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonColor2);
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonColor3);
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonColor1);
             this.splitContainerMain.Panel1.Controls.Add(this.labelDebug1);
             this.splitContainerMain.Panel1.Controls.Add(this.TextBoxDebug);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonRefresh);
@@ -63,6 +69,7 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerMain.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.splitContainerMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerMain_Panel2_Paint);
             this.splitContainerMain.Panel2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseClick);
             this.splitContainerMain.Panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainerMain_Panel2_MouseDown);
@@ -89,6 +96,48 @@
             this.TextBoxDebug.TabIndex = 2;
             this.TextBoxDebug.Text = "";
             // 
+            // buttonColor1
+            // 
+            this.buttonColor1.BackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor1.Location = new System.Drawing.Point(101, 382);
+            this.buttonColor1.Name = "buttonColor1";
+            this.buttonColor1.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor1.TabIndex = 0;
+            this.buttonColor1.UseVisualStyleBackColor = false;
+            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
+            // 
+            // buttonColor3
+            // 
+            this.buttonColor3.BackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor3.Location = new System.Drawing.Point(101, 440);
+            this.buttonColor3.Name = "buttonColor3";
+            this.buttonColor3.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor3.TabIndex = 3;
+            this.buttonColor3.UseVisualStyleBackColor = false;
+            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
+            // 
+            // buttonColor2
+            // 
+            this.buttonColor2.BackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor2.Location = new System.Drawing.Point(101, 411);
+            this.buttonColor2.Name = "buttonColor2";
+            this.buttonColor2.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor2.TabIndex = 4;
+            this.buttonColor2.UseVisualStyleBackColor = false;
+            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,6 +162,9 @@
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.Label labelDebug1;
         private System.Windows.Forms.RichTextBox TextBoxDebug;
+        private System.Windows.Forms.Button buttonColor1;
+        private System.Windows.Forms.Button buttonColor2;
+        private System.Windows.Forms.Button buttonColor3;
     }
 }
 
