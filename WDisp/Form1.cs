@@ -45,8 +45,8 @@ namespace WDisp
         {
             InitializeComponent();
             numbOfLeds = 32;
-            numbOfLines = 100;
-            myPen = new Pen(Color.DarkGreen,2);
+            numbOfLines = 360;
+            myPen = new Pen(Color.DarkGreen,1);
             g = splitContainerMain.Panel2.CreateGraphics();
         
 
@@ -171,7 +171,7 @@ namespace WDisp
             }
 
             //myPen.Width = gridOfsetR;
-            ledWidth = (int)gridOfsetR;
+            ledWidth = (int)gridOfsetR;  //???????????????????????????????????
             /*
             ledWidth = (int)gridOfsetR;
             myPen.Width = gridOfsetR;
@@ -186,16 +186,7 @@ namespace WDisp
          
         private void panelGraph_Paint(object sender, PaintEventArgs e)
         {
-            //testGraphics();
-            /*
-            g.Dispose();
-            g = panelGraph.CreateGraphics();
-            g.Clear(Color.White);
-
-            centerX = panelGraph.Width / 2;
-            centerY = panelGraph.Height / 2;
-            drawGrid(100, 10);
-            */
+       
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -215,12 +206,29 @@ namespace WDisp
             centerY = splitContainerMain.Panel2.Height / 2;
 
        
-            drawGrid(numbOfLines,numbOfLeds);
+           
             
+            drawGrid(numbOfLines, numbOfLeds);
+            drawPolarPicture();
             //testGraphics();
         }
 
-        private void colourLedPoint(int lineNumb, int ledNumb, Color pointColor)
+        private void drawPolarPicture()
+        {
+            for (int i = 0; i < numbOfLines; i++)
+            {
+                for (int j = 0; j < numbOfLeds; j++)
+                {
+                    int ledState = lineModel.getLed(i, j);
+                    if (ledState != 0)
+                    {
+                        colourLedPoint(i, j, getColorFromState(ledState), false);
+                    }
+                }
+            }
+        }
+
+        private void colourLedPoint(int lineNumb, int ledNumb, Color pointColor, Boolean refreshGrid)
         {
            double r = ledNumb * gridOfsetR;
            r += gridStartingOfset + gridOfsetR / 2;
@@ -237,13 +245,16 @@ namespace WDisp
 
            myPen.Color = bufColor;
            myPen.Width = bufWidth;
-           
-           //oswiezenie siatki
-           drawLineByAngle(0, 0, centerY/*!!!*/, angle, gridStartingOfset);
-           drawLineByAngle(0, 0, centerY/*!!!*/, angle + gridAngle, gridStartingOfset);
-           r -= gridOfsetR / 2;
-           drawCircle(0, 0, (int)r);
-           drawCircle(0, 0, (int)(r + gridOfsetR));
+
+            //oswiezenie siatki
+            if (refreshGrid == true)
+            {
+                drawLineByAngle(0, 0, centerY/*!!!*/, angle, gridStartingOfset);
+                drawLineByAngle(0, 0, centerY/*!!!*/, angle + gridAngle, gridStartingOfset);
+                r -= gridOfsetR / 2;
+                drawCircle(0, 0, (int)r);
+                drawCircle(0, 0, (int)(r + gridOfsetR));
+            }
 
 
         }
@@ -287,26 +298,32 @@ namespace WDisp
         {
         }
 
-        private Color getActivColor()
+        private Color getColorFromState(int ledState)
         {
-            switch(activColor)
+            switch (ledState)
             {
                 case 0:
                 default:
-                {
-                    return Color.White;
-                }break;
+                    {
+                        return Color.White;
+                    }
+                    break;
                 case 1:
-                {
-                    return Color.Yellow;
-                }break;
+                    {
+                        return Color.Yellow;
+                    }
+                    break;
                 case 2:
-                {
-                    return Color.Green;
-                }break;
-
+                    {
+                        return Color.Green;
+                    }
+                    break;
             }
-           
+        }
+
+        private Color getActivColor()
+        {
+            return getColorFromState(activColor);         
         }
 
         private void splitContainerMain_Panel2_MouseMove(object sender, MouseEventArgs e)
@@ -331,7 +348,7 @@ namespace WDisp
                     if( (lastLedCoordinante.LedNo != LedCoord.LedNo) || (lastLedCoordinante.LineNo != LedCoord.LineNo) )
                     {
                         lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, activColor);
-                        colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor());
+                        colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor(),true);
                     }
 
                 }
@@ -350,7 +367,7 @@ namespace WDisp
             if ((LedCoord.LedNo != -1) && (LedCoord.LineNo != -1))
             {
                 lineModel.setLed(LedCoord.LineNo, LedCoord.LedNo, activColor);
-                colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor());
+                colourLedPoint(LedCoord.LineNo, LedCoord.LedNo, getActivColor(),true);
             }
             lastLedCoordinante = LedCoord;
             //DebugOut(lineModel.dispTable());
