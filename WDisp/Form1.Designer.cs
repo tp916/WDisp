@@ -30,11 +30,13 @@
         {
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.buttonColor2 = new System.Windows.Forms.Button();
+            this.buttonColor3 = new System.Windows.Forms.Button();
+            this.buttonColor1 = new System.Windows.Forms.Button();
             this.labelDebug1 = new System.Windows.Forms.Label();
             this.TextBoxDebug = new System.Windows.Forms.RichTextBox();
-            this.buttonColor1 = new System.Windows.Forms.Button();
-            this.buttonColor3 = new System.Windows.Forms.Button();
-            this.buttonColor2 = new System.Windows.Forms.Button();
+            this.buttonBmp = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
@@ -59,6 +61,7 @@
             // 
             // splitContainerMain.Panel1
             // 
+            this.splitContainerMain.Panel1.Controls.Add(this.buttonBmp);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonColor2);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonColor3);
             this.splitContainerMain.Panel1.Controls.Add(this.buttonColor1);
@@ -79,6 +82,48 @@
             this.splitContainerMain.SplitterDistance = 192;
             this.splitContainerMain.TabIndex = 0;
             // 
+            // buttonColor2
+            // 
+            this.buttonColor2.BackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
+            this.buttonColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor2.Location = new System.Drawing.Point(101, 411);
+            this.buttonColor2.Name = "buttonColor2";
+            this.buttonColor2.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor2.TabIndex = 4;
+            this.buttonColor2.UseVisualStyleBackColor = false;
+            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
+            // 
+            // buttonColor3
+            // 
+            this.buttonColor3.BackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
+            this.buttonColor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor3.Location = new System.Drawing.Point(101, 440);
+            this.buttonColor3.Name = "buttonColor3";
+            this.buttonColor3.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor3.TabIndex = 3;
+            this.buttonColor3.UseVisualStyleBackColor = false;
+            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
+            // 
+            // buttonColor1
+            // 
+            this.buttonColor1.BackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.buttonColor1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.buttonColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonColor1.Location = new System.Drawing.Point(101, 382);
+            this.buttonColor1.Name = "buttonColor1";
+            this.buttonColor1.Size = new System.Drawing.Size(40, 23);
+            this.buttonColor1.TabIndex = 0;
+            this.buttonColor1.UseVisualStyleBackColor = false;
+            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
+            // 
             // labelDebug1
             // 
             this.labelDebug1.AutoSize = true;
@@ -96,47 +141,19 @@
             this.TextBoxDebug.TabIndex = 2;
             this.TextBoxDebug.Text = "";
             // 
-            // buttonColor1
+            // buttonBmp
             // 
-            this.buttonColor1.BackColor = System.Drawing.Color.White;
-            this.buttonColor1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonColor1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.buttonColor1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.buttonColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonColor1.Location = new System.Drawing.Point(101, 382);
-            this.buttonColor1.Name = "buttonColor1";
-            this.buttonColor1.Size = new System.Drawing.Size(40, 23);
-            this.buttonColor1.TabIndex = 0;
-            this.buttonColor1.UseVisualStyleBackColor = false;
-            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
+            this.buttonBmp.Location = new System.Drawing.Point(10, 307);
+            this.buttonBmp.Name = "buttonBmp";
+            this.buttonBmp.Size = new System.Drawing.Size(75, 23);
+            this.buttonBmp.TabIndex = 5;
+            this.buttonBmp.Text = "Open BMP";
+            this.buttonBmp.UseVisualStyleBackColor = true;
+            this.buttonBmp.Click += new System.EventHandler(this.buttonBmp_Click);
             // 
-            // buttonColor3
+            // openFileDialog1
             // 
-            this.buttonColor3.BackColor = System.Drawing.Color.Green;
-            this.buttonColor3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonColor3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Green;
-            this.buttonColor3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
-            this.buttonColor3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonColor3.Location = new System.Drawing.Point(101, 440);
-            this.buttonColor3.Name = "buttonColor3";
-            this.buttonColor3.Size = new System.Drawing.Size(40, 23);
-            this.buttonColor3.TabIndex = 3;
-            this.buttonColor3.UseVisualStyleBackColor = false;
-            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
-            // 
-            // buttonColor2
-            // 
-            this.buttonColor2.BackColor = System.Drawing.Color.Yellow;
-            this.buttonColor2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.buttonColor2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Yellow;
-            this.buttonColor2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
-            this.buttonColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonColor2.Location = new System.Drawing.Point(101, 411);
-            this.buttonColor2.Name = "buttonColor2";
-            this.buttonColor2.Size = new System.Drawing.Size(40, 23);
-            this.buttonColor2.TabIndex = 4;
-            this.buttonColor2.UseVisualStyleBackColor = false;
-            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -165,6 +182,8 @@
         private System.Windows.Forms.Button buttonColor1;
         private System.Windows.Forms.Button buttonColor2;
         private System.Windows.Forms.Button buttonColor3;
+        private System.Windows.Forms.Button buttonBmp;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

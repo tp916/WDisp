@@ -45,7 +45,7 @@ namespace WDisp
         {
             InitializeComponent();
             numbOfLeds = 32;
-            numbOfLines = 360;
+            numbOfLines = 100;
             myPen = new Pen(Color.DarkGreen,1);
             g = splitContainerMain.Panel2.CreateGraphics();
         
@@ -142,7 +142,7 @@ namespace WDisp
 
         private void drawGrid(int numbOfLines, int numbOfLeds) 
         {
-            int startingOfset =  centerY / 4;
+            int startingOfset = 10;// centerY / 4;
             int lenght = centerY;
 
 
@@ -407,14 +407,68 @@ namespace WDisp
             
         }
 
-      
-    
+        private void buttonBmp_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp = null;
+
+
+            if(openFileDialog1.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            { return; }
+
+            bmp = new Bitmap(openFileDialog1.FileName);
+
+            //kontrola wielkosci
+
+
+            //----------------------
+
+            
+            for (int i = 0; i < numbOfLines; i++)
+            {
+               
+                
+            }
+
+           
+            for (int lineNo = 0; lineNo < numbOfLines; lineNo++)
+            {
+                for(int ledNo = 0; ledNo < numbOfLeds; ledNo++)
+                {
+                    int r = ledNo + 1;
+                    double angle = (gridAngle * lineNo * Math.PI) / 180;
+
+                    int x = 32 + (int)(Math.Round(r * Math.Cos(angle)));
+                    int y = 32 - (int)(Math.Round(r * Math.Sin(angle)));
+
+                    if(x > 63)
+                    { x = 63; }
+
+                    if (y > 63)
+                    { y = 63; }
+
+                    
+                    if (bmp.GetPixel(x, y) == Color.FromArgb(0, 0, 0))
+                    {
+                        lineModel.setLed(lineNo, ledNo, activColor);
+                    }
+                    
+                }
+                //angle += gridAngle;
+            }
+                           
+
+             
+            
+
+            if(bmp != null)
+            { bmp.Dispose(); }
+
+
+
+        }
     }
     
-   // 2pi - 360 
-    //rad - st
-
-      //  st = 180rag/pi
+  
    
 }
 
